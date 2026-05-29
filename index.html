@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Spelling Checker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Professional Spelling Checker</h2>
+        <form method="POST">
+            <textarea name="text" rows="5" cols="60" placeholder="Enter your text here">{{ input_text }}</textarea>
+            <br>
+            <button type="submit">Check Spelling</button>
+        </form>
+        {% if corrected_text %}
+            <h3>Corrected Text:</h3>
+            <div><strong>{{ corrected_text }}</strong></div>
+            {% if corrections %}
+                <h3>Misspelled Words & Corrections:</h3>
+                <ul>
+                {% for wrong, suggestion in corrections %}
+                    <li>{{ wrong }} → <strong>{{ suggestion }}</strong></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+        
+        <!-- Correction History Block -->
+        <h3>Correction History</h3>
+        <ul>
+        {% for entry in history %}
+            <li>
+                <strong>Input:</strong> {{ entry.input }}<br>
+                <strong>Corrected:</strong> {{ entry.corrected }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
